@@ -1,0 +1,37 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.github.qiaolin.apollo.properties.HotUpdateProperties",
+      "name": "apollo.hot.update",
+      "type": "com.github.qiaolin.apollo.properties.HotUpdateProperties"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.github.qiaolin.apollo.properties.HotUpdateProperties",
+      "defaultValue": [
+        "application"
+      ],
+      "name": "apollo.hot.update.namespaces",
+      "description": "apollo 命名空间, 默认application\n  <p>需要和你 @EnableApolloConfig(value = \"application\", order = 1)的value一致",
+      "type": "java.lang.String[]"
+    },
+    {
+      "sourceType": "com.github.qiaolin.apollo.properties.HotUpdateProperties",
+      "defaultValue": 5,
+      "name": "apollo.hot.update.recursion-level",
+      "description": "解析 {@link ConfigurationProperties} 注解时，解析到他的第几层\n  <p> 也就是对象中有对象，如果对象中的对象不为空，那么也会在热更新的监控范围",
+      "type": "java.lang.Integer"
+    },
+    {
+      "sourceType": "com.github.qiaolin.apollo.properties.HotUpdateProperties",
+      "defaultValue": [
+        "**"
+      ],
+      "name": "apollo.hot.update.update-keys",
+      "description": "要热更新的属性匹配符\n  <p> 支持表达式\n  例如：\n  <table border=\"1\">\n      <tr>\n          <th width=\"15%\">表达式<\/th>\n          <th width=\"40%\">匹配成功<\/th>\n          <th width=\"40%\">匹配失败<\/th>\n      <\/tr>\n      <tr>\n          <td>**<\/td>\n          <td>匹配所有<\/td>\n          <td>无<\/td>\n      <\/tr>\n      <tr>\n          <td>com.github.qiaolin.*<\/td>\n          <td>com.github.qiaolin.a、com.github.qiaolin.xx、com.github.qiaolin.zzz<\/td>\n          <td>com.github.qiaolin.a.xx、com.github.qiaolin.a.zz.xx<\/td>\n      <\/tr>\n      <tr>\n          <td>com.github.qiaolin.**<\/td>\n          <td>com.github.qiaolin.a、com.github.qiaolin.xx.bb、com.github.qiaolin.zzz.ss<\/td>\n          <td>com.github.qiuyan.x、com.github.qiuyan.bb.xx<\/td>\n      <\/tr>\n  <\/table>\n\n  <p> 你可以不配置，但是它意味着扫描所有的属性，包含一些框架里面的属性\n  <p> 可能会出现一些不好的情况，一些误操作，导致修改了框架里面的属性\n  <p> 推荐你尽量配置他，只扫描你需要的属性",
+      "type": "java.lang.String[]"
+    }
+  ]
+}
