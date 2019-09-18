@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class IntegerPropertyUpdater extends AbstractPropertyUpdater<Integer> {
+public class IntegerPropertyUpdater extends AbstractBasePropertyUpdater<Integer> {
 
     @Override
     public boolean support(Class<?> clazz) {
@@ -20,12 +20,7 @@ public class IntegerPropertyUpdater extends AbstractPropertyUpdater<Integer> {
     }
 
     @Override
-    protected Integer parseValue(PropertyInfo propertyInfo, ConfigChange change) {
-        try {
-            return Integer.valueOf(change.getNewValue().trim());
-        } catch (NumberFormatException e) {
-            // 再抢救一下
-            return Integer.valueOf(propertyInfo.getDefaultValue());
-        }
+    protected Integer parseValue0(PropertyInfo propertyInfo, String value) {
+        return Integer.valueOf(value);
     }
 }

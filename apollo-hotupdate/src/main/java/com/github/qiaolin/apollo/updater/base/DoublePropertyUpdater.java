@@ -5,6 +5,7 @@ import com.github.qiaolin.apollo.support.PropertyInfo;
 import com.github.qiaolin.apollo.updater.AbstractPropertyUpdater;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * @author qiaolin
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class DoublePropertyUpdater extends AbstractPropertyUpdater<Double> {
+public class DoublePropertyUpdater extends AbstractBasePropertyUpdater<Double> {
 
     @Override
     public boolean support(Class<?> clazz) {
@@ -20,7 +21,7 @@ public class DoublePropertyUpdater extends AbstractPropertyUpdater<Double> {
     }
 
     @Override
-    protected Double parseValue(PropertyInfo propertyInfo, ConfigChange change) {
-        return Double.valueOf(change.getNewValue().trim());
+    protected Double parseValue0(PropertyInfo propertyInfo, String value) {
+        return Double.valueOf(value);
     }
 }

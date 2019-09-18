@@ -3,6 +3,9 @@ package com.github.qiaolin.apollo.validator;
 import com.github.qiaolin.apollo.matcher.PropertyKeyMatcher;
 import com.github.qiaolin.apollo.properties.HotUpdateProperties;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
+import java.util.Arrays;
 
 /**
  * 默认属性验证器
@@ -22,4 +25,6 @@ public class DefaultPropertyValidator implements HotPropertyValidator {
     public boolean validate(String key) {
         return propertyKeyMatcher.anyMatch(hotUpdateProperties.getUpdateKeys(), key);
     }
+
+
 }

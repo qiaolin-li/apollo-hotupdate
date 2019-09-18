@@ -1,4 +1,4 @@
-package com.github.qiaolin.apollo.updater.other;
+package com.github.qiaolin.apollo.updater.base;
 
 import com.ctrip.framework.apollo.model.ConfigChange;
 import com.github.qiaolin.apollo.support.PropertyInfo;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-public class EnumPropertyUpdater extends AbstractPropertyUpdater {
+public class EnumPropertyUpdater extends AbstractBasePropertyUpdater<Enum> {
 
     @Override
     public boolean support(Class<?> clazz) {
@@ -18,8 +18,8 @@ public class EnumPropertyUpdater extends AbstractPropertyUpdater {
     }
 
     @Override
-    protected Object parseValue(PropertyInfo propertyInfo, ConfigChange change) {
+    protected Enum parseValue0(PropertyInfo propertyInfo, String value) {
         Class<Enum> type = (Class<Enum>) propertyInfo.getField().getType();
-        return Enum.valueOf(type, change.getNewValue());
+        return Enum.valueOf(type, value);
     }
 }

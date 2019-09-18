@@ -12,7 +12,7 @@
 
     <groupId>com.github.qiaolin</groupId>
     <artifactId>apollo-hotupdate-project</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
 
     <packaging>pom</packaging>
 
