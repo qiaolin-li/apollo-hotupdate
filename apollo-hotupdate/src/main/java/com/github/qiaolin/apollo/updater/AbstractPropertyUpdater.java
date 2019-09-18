@@ -5,6 +5,7 @@ import com.ctrip.framework.apollo.model.ConfigChange;
 import com.ctrip.framework.apollo.spring.annotation.ApolloConfig;
 import com.github.qiaolin.apollo.support.PropertyInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 
@@ -44,6 +45,7 @@ public abstract class AbstractPropertyUpdater<T> implements PropertyUpdater {
      * @return  正确类型的新值
      */
     protected abstract T parseValue(PropertyInfo propertyInfo, ConfigChange change);
+
 
     /**
      *  apollo配置对象

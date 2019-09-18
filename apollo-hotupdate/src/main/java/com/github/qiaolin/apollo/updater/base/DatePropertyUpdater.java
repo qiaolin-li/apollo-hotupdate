@@ -17,7 +17,7 @@ import java.util.Date;
 
 @Slf4j
 @Component
-public class DatePropertyUpdater extends AbstractPropertyUpdater<Date> {
+public class DatePropertyUpdater extends AbstractBasePropertyUpdater<Date> {
 
     private static final String DEFAULT_DATE_FORMAT = "yyyy/MM/dd HH:mm:ss";
 
@@ -27,15 +27,15 @@ public class DatePropertyUpdater extends AbstractPropertyUpdater<Date> {
     }
 
     @Override
-    protected Date parseValue(PropertyInfo propertyInfo, ConfigChange change) {
+    protected Date parseValue0(PropertyInfo propertyInfo, String value) {
         DateFormat annotation = propertyInfo.getField().getAnnotation(DateFormat.class);
         String format = (annotation == null) ? DEFAULT_DATE_FORMAT : annotation.value();
 
         try {
-            return new SimpleDateFormat(format).parse(change.getNewValue().trim());
+            return new SimpleDateFormat(format).parse(value);
         } catch (ParseException e) {
             log.warn("格式化日期出错");
+            throw new RuntimeException(e);
         }
-        return null;
     }
 }

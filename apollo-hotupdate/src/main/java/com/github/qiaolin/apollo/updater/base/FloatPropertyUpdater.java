@@ -5,6 +5,7 @@ import com.github.qiaolin.apollo.support.PropertyInfo;
 import com.github.qiaolin.apollo.updater.AbstractPropertyUpdater;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 /**
  * @author qiaolin
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class FloatPropertyUpdater extends AbstractPropertyUpdater<Float> {
+public class FloatPropertyUpdater extends AbstractBasePropertyUpdater<Float> {
 
     @Override
     public boolean support(Class<?> clazz) {
@@ -20,7 +21,7 @@ public class FloatPropertyUpdater extends AbstractPropertyUpdater<Float> {
     }
 
     @Override
-    protected Float parseValue(PropertyInfo propertyInfo, ConfigChange change) {
-        return Float.valueOf(change.getNewValue().trim());
+    protected Float parseValue0(PropertyInfo propertyInfo, String value) {
+        return Float.valueOf(value);
     }
 }

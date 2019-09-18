@@ -5,10 +5,13 @@ import com.github.qiaolin.apollo.exception.UpdatePropertyException;
 import com.github.qiaolin.apollo.support.PropertyInfo;
 import com.github.qiaolin.apollo.updater.AbstractPropertyUpdater;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 
@@ -22,8 +25,21 @@ public abstract class AbstractArrayPropertyUpdater<T> extends AbstractPropertyUp
 
     @Override
     protected T[] parseValue(PropertyInfo propertyInfo, ConfigChange change){
-        String[] arrayProperty = getConfig().getArrayProperty(change.getPropertyName(), ",", new String[]{});
+        try {
+            String[] arrayProperty = getConfig().getArrayProperty(propertyInfo.getKey(), ",", new String[]{});
+            return parseValue0(propertyInfo, arrayProperty);
+        } catch (Exception e) {
+            if(!StringUtils.isEmpty(propertyInfo.getDefaultValue())){
+                log.warn("设置的值不正确，使用默认值！ propertyKey:{}, oldValue:{}, newValue:{}, defaultValue:{}",
+                        propertyInfo.getKey(), change.getOldValue(), change.getNewValue(), propertyInfo.getDefaultValue(), e);
+                String[] strings = defaultValueToArray(propertyInfo.getDefaultValue());
+                return parseValue0(propertyInfo, strings);
+            }
+            throw e;
+        }
+    }
 
+    protected T[] parseValue0(PropertyInfo propertyInfo, String[] arrayProperty) {
         // 如果不能知道准确的类型，如果返回一个Object[] 数组出去，但你的属性实际上是 String[] ，
         // 会出现 参数异常
         T[] array = (T[]) Array.newInstance(getActualTypeArgument(), arrayProperty.length);
@@ -46,9 +62,25 @@ public abstract class AbstractArrayPropertyUpdater<T> extends AbstractPropertyUp
 
 
     /**
+     *  将默认值转换成string数组
+     * @param str
+     * @return
+     */
+    private String[] defaultValueToArray(String str){
+        String[] split = str.split(",");
+        List<String> result = new ArrayList<>(split.length);
+        for (String s : split) {
+            if(s != null && !"".equals(s.trim())){
+                result.add(s);
+            }
+        }
+        return result.toArray(new String[result.size()]);
+    }
+
+    /**
      * 获取泛型类Class对象，不是泛型类则返回null
      */
-    public Class<?> getActualTypeArgument() {
+    private Class<?> getActualTypeArgument() {
         Type genericSuperclass = getClass().getGenericSuperclass();
         if (genericSuperclass instanceof ParameterizedType) {
             Type[] actualTypeArguments = ((ParameterizedType) genericSuperclass).getActualTypeArguments();

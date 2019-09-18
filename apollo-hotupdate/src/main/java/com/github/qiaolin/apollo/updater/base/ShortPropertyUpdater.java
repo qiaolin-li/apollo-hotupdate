@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class ShortPropertyUpdater extends AbstractPropertyUpdater<Short> {
+public class ShortPropertyUpdater extends AbstractBasePropertyUpdater<Short> {
 
     @Override
     public boolean support(Class<?> clazz) {
@@ -20,7 +20,7 @@ public class ShortPropertyUpdater extends AbstractPropertyUpdater<Short> {
     }
 
     @Override
-    protected Short parseValue(PropertyInfo propertyInfo, ConfigChange change) {
-        return Short.valueOf(change.getNewValue().trim());
+    protected Short parseValue0(PropertyInfo propertyInfo, String value) {
+        return Short.valueOf(value);
     }
 }

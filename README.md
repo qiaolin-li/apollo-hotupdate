@@ -19,6 +19,22 @@ github仓库：https://github.com/qiaolin-li/apollo-hotupdate
 
 ## 2、使用
 
+#### 配置项
+```properties
+# apollo命名空间，数组，多个以","分割, 默认 application
+apollo.hot.update.namespaces= application
+
+# ConfigurationProperties 注解所在的类属性为对象类型，则会递归解析，这里为递归的层数
+# 默认为 5层
+apollo.hot.update.recursion-level= 5 
+
+# 那些注解要被热更新，推荐配置一下，默认 ** 即所有配置
+# 如果你的注解都为 xxx. 开头，那么你配置 xxx.**即可
+# 支持多个值，以","分割，例如：com.github.**, com.gitlab.**
+apollo.hot.update.update-keys= com.github.**
+```
+
+
 #### 目前支持的注解：
 ###### @Value 注解
 ```java

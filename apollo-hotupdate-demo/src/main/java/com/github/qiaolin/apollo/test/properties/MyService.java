@@ -11,14 +11,14 @@ import java.util.Date;
 @Component
 public class MyService {
 
-    @HotUpdateFiled(value = "com.github.qiaolin.day")
+    @HotUpdateFiled(value = "com.github.qiaolin.day", defaultValue = "9")
     private int day;
 
     @HotUpdateFiled(prefix = "com.github.qiaolin", value = "a")
     private String a;
 
 
-    @Value(value = "${qiaolin.a.b}")
+    @Value(value = "${qiaolin.a.b:1}")
     private String b;
 
 
