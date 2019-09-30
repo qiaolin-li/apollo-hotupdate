@@ -12,7 +12,7 @@ github仓库：https://github.com/qiaolin-li/apollo-hotupdate
 <dependency>
     <groupId>com.github.qiaolin</groupId>
     <artifactId>apollo-hotupdate</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
 </dependency>
 ```
 
